@@ -27,6 +27,8 @@ import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.Servlet;
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.rewrite.handler.RewriteHandler;
+import org.eclipse.jetty.rewrite.handler.RewriteRegexRule;
 import org.eclipse.jetty.server.ConnectionFactory;
 import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
@@ -240,6 +242,23 @@ public final class JettyServer {
     servletContextHandler = new ServletContextHandler();
     servletContextHandler.setContextPath("/");
     servletContextHandler.addServlet(DefaultServlet.class, "/");
+    servletContextHandler.addServlet(DefaultServlet.class, "/metalakes");
+
+    RewriteHandler rewriteHandler = new RewriteHandler();
+
+    RewriteRegexRule removeHtmlExtensionRule = new RewriteRegexRule();
+    removeHtmlExtensionRule.setRegex("/(.*).html");
+    removeHtmlExtensionRule.setReplacement("/$1");
+    rewriteHandler.addRule(removeHtmlExtensionRule);
+
+    RewriteRegexRule addHtmlExtensionRule = new RewriteRegexRule();
+    addHtmlExtensionRule.setRegex("/([^./]+)$");
+    addHtmlExtensionRule.setReplacement("/$1.html");
+    rewriteHandler.addRule(addHtmlExtensionRule);
+
+    rewriteHandler.setHandler(servletContextHandler);
+
+    server.setHandler(rewriteHandler);
   }
 
   private void initializeWebAppServletContextHandler() {
