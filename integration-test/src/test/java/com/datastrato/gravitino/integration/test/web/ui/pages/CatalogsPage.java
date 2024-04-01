@@ -179,38 +179,6 @@ public class CatalogsPage extends AbstractWebIT {
     }
   }
 
-  public void sendPostJsonRequest(String targetURL, String jsonInputString) {
-    HttpURLConnection connection = null;
-    try {
-      URL url = new URL(targetURL);
-      connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("POST");
-      connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-      connection.setRequestProperty("Accept", "application/vnd.gravitino.v1+json");
-
-      connection.setUseCaches(false);
-      connection.setDoOutput(true);
-
-      try (OutputStream os = connection.getOutputStream()) {
-        byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-        os.write(input, 0, input.length);
-      }
-      int responseCode = connection.getResponseCode();
-      LOG.info("POST Response Code :: " + responseCode);
-      if (responseCode == HttpURLConnection.HTTP_OK) {
-        LOG.info("POST request success.");
-      } else {
-        LOG.info("POST request failed.");
-      }
-    } catch (Exception e) {
-      LOG.error(e.getMessage(), e);
-    } finally {
-      if (connection != null) {
-        connection.disconnect();
-      }
-    }
-  }
-
   public void createTable(
       String baseURL, String metalakeName, String catalogName, String schemaName) {
     String url =
@@ -224,7 +192,6 @@ public class CatalogsPage extends AbstractWebIT {
             + "/tables";
     String jsonInputString =
         "{\"name\":\"table\",\"comment\":\"This is my table\",\"columns\":[{\"name\":\"id\",\"type\":\"integer\",\"comment\":\"id column comment\",\"nullable\":true},{\"name\":\"name\",\"type\":\"string\",\"comment\":\"name column comment\",\"nullable\":true},{\"name\":\"age\",\"type\":\"integer\",\"comment\":\"age column comment\",\"nullable\":true},{\"name\":\"dt\",\"type\":\"date\",\"comment\":\"dt column comment\",\"nullable\":true}]}";
-    LOG.info(url);
     sendPostJsonRequest(url, jsonInputString);
   }
 

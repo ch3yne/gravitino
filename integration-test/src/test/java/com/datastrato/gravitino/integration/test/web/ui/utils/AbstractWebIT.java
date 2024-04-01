@@ -6,6 +6,11 @@ package com.datastrato.gravitino.integration.test.web.ui.utils;
 
 import com.datastrato.gravitino.integration.test.util.AbstractIT;
 import com.google.common.base.Function;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.AfterAll;
@@ -82,6 +87,38 @@ public class AbstractWebIT extends AbstractIT {
       throw new InvalidArgumentException("The provided argument is neither a By nor a WebElement");
     }
     return element;
+  }
+
+  public void sendPostJsonRequest(String targetURL, String jsonInputString) {
+    HttpURLConnection connection = null;
+    try {
+      URL url = new URL(targetURL);
+      connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("POST");
+      connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+      connection.setRequestProperty("Accept", "application/vnd.gravitino.v1+json");
+
+      connection.setUseCaches(false);
+      connection.setDoOutput(true);
+
+      try (OutputStream os = connection.getOutputStream()) {
+        byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+        os.write(input, 0, input.length);
+      }
+      int responseCode = connection.getResponseCode();
+      LOG.info("POST Response Code :: " + responseCode);
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+        LOG.info("POST request success.");
+      } else {
+        LOG.error("POST request failed.");
+      }
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+    } finally {
+      if (connection != null) {
+        connection.disconnect();
+      }
+    }
   }
 
   @BeforeEach
