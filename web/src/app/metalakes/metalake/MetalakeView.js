@@ -92,8 +92,14 @@ const MetalakeView = () => {
 
   return (
     <Box className={'metalake-template'} style={{ height: 'calc(100vh - 11rem)' }}>
-      <Box className='app-metalake twc-w-full twc-h-full twc-flex twc-rounded-lg twc-overflow-auto twc-relative shadow-md'>
-        <Box className={`twc-bg-customs-white`} sx={{ borderRight: theme => `1px solid ${theme.palette.divider}` }}>
+      <Box
+        sx={{ border: theme => theme.palette.divider }}
+        className={`app-metalake dark:twc-bg-customs-darkPaperBg dark:twc-border dark:twc-border-solid twc-w-full twc-h-full twc-flex twc-rounded-lg twc-overflow-auto twc-relative shadow-md`}
+      >
+        <Box
+          className={`twc-bg-customs-white dark:twc-bg-[transparent]`}
+          sx={{ borderRight: theme => `1px solid ${theme.palette.divider}` }}
+        >
           <Box className={`twc-w-[340px] twc-h-full round-tl-md round-bl-md twc-overflow-hidden`}>
             <Box className={'twc-px-5 twc-py-3 twc-flex twc-items-center'}></Box>
             <MetalakePageLeftBar />

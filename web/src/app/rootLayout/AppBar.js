@@ -51,7 +51,7 @@ const AppBar = () => {
       elevation={6}
       position={'sticky'}
       className={
-        'layout-navbar-container twc-px-6 twc-items-center twc-justify-center twc-transition-[border-bottom] twc-ease-in-out twc-duration-200 twc-bg-customs-white'
+        'layout-navbar-container twc-px-6 twc-items-center twc-justify-center twc-transition-[border-bottom] twc-ease-in-out twc-duration-200'
       }
     >
       <Box className={'layout-navbar twc-w-full'}>

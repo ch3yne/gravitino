@@ -3,7 +3,7 @@
  * This software is licensed under the Apache License version 2.
  */
 
-import { Box, Button, TextField } from '@mui/material'
+import { Box, Paper, Button, TextField } from '@mui/material'
 
 import Icon from '@/components/Icon'
 
@@ -17,7 +17,7 @@ const TableHeader = props => {
   }
 
   return (
-    <Box className={'twc-pr-5 twc-pb-4 twc-pt-4 twc-flex twc-flex-wrap twc-items-center twc-justify-end'}>
+    <Paper className={'twc-pr-5 twc-pb-4 twc-pt-4 twc-flex twc-flex-wrap twc-items-center twc-justify-end'}>
       <Box className={'twc-flex twc-items-center twc-flex-1 twc-h-full'} id='filter-panel' />
       <TextField
         data-refer='query-metalake'
@@ -36,7 +36,7 @@ const TableHeader = props => {
       >
         create metalake
       </Button>
-    </Box>
+    </Paper>
   )
 }
 

@@ -4,18 +4,19 @@
  */
 
 import { lighten, darken } from '../utils/color'
-import settings from '../settings'
+import themeConfig from '../../configs/themeConfig'
 
-export const primaryColor = settings.primaryColor || '#6478f7'
+export const primaryColor = '#6478f7'
 
 const whiteColor = '#fff'
 const blackColor = '#000'
 const lightColor = '#32465a'
 const darkColor = '#dbdbeb'
 const lightBgColor = '#f5f5f8'
-const darkBgColor = '#232323'
+const darkBgColor = '#111418'
+const darkPaperBgColor = '#20242a'
 
-export const mainColor = settings.mode === 'light' ? lightColor : darkColor
+export const mainColor = themeConfig.mode === 'light' ? lightColor : darkColor
 
 const colors = {
   customs: {
@@ -25,7 +26,8 @@ const colors = {
     light: lightColor,
     dark: darkColor,
     lightBg: lightBgColor,
-    darkBg: darkBgColor
+    darkBg: darkBgColor,
+    darkPaperBg: darkPaperBgColor
   },
   primary: {
     main: primaryColor,

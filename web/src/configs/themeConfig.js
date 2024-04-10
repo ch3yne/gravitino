@@ -11,6 +11,12 @@
 
 const themeConfig = {
   /**
+   * @description set the default theme mode to light or dark
+   * @type {'light'|'dark'}
+   */
+  mode: 'dark',
+
+  /**
    * @description message box position
    * @type {ToastPosition}
    */

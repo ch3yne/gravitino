@@ -11,7 +11,7 @@ import { StyledEngineProvider, ThemeProvider as MuiThemeProvider, CssBaseline } 
 
 import { useLocalStorage } from 'react-use'
 
-import { settings as settingsConfig } from '@/lib/settings'
+import themeConfig from '@/configs/themeConfig'
 import createMuiTheme from '@/lib/theme/mui'
 
 const ThemeContext = createContext()
@@ -36,7 +36,7 @@ const MuiProvider = props => {
 const ThemeProvider = props => {
   const { children } = props
 
-  const [mode, setMode] = useLocalStorage('theme', settingsConfig.mode, { raw: true })
+  const [mode, setMode] = useLocalStorage('theme', themeConfig.mode, { raw: true })
 
   useEffect(() => {
     if (mode) {

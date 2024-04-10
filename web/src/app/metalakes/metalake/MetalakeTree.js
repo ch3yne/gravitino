@@ -137,7 +137,7 @@ const MetalakeTree = props => {
         return (
           <IconButton
             size='small'
-            sx={{ color: '#666' }}
+            className='dark:twc-text-[#dbdbdb]'
             onClick={e => handleClickIcon(e, nodeProps)}
             onMouseEnter={e => onMouseEnter(e, nodeProps)}
             onMouseLeave={e => onMouseLeave(e, nodeProps)}
@@ -158,7 +158,7 @@ const MetalakeTree = props => {
         return (
           <IconButton
             size='small'
-            sx={{ color: '#666' }}
+            className='dark:twc-text-[#dbdbdb]'
             onClick={e => handleClickIcon(e, nodeProps)}
             onMouseEnter={e => onMouseEnter(e, nodeProps)}
             onMouseLeave={e => onMouseLeave(e, nodeProps)}
@@ -172,7 +172,7 @@ const MetalakeTree = props => {
           <IconButton
             disableRipple={!store.selectedNodes.includes(nodeProps.data.key)}
             size='small'
-            sx={{ color: '#666' }}
+            className='dark:twc-text-[#dbdbdb]'
             onClick={e => handleClickIcon(e, nodeProps)}
             onMouseEnter={e => onMouseEnter(e, nodeProps)}
             onMouseLeave={e => onMouseLeave(e, nodeProps)}
@@ -186,7 +186,7 @@ const MetalakeTree = props => {
           <IconButton
             disableRipple={!store.selectedNodes.includes(nodeProps.data.key)}
             size='small'
-            sx={{ color: '#666' }}
+            className='dark:twc-text-[#dbdbdb]'
             onClick={e => handleClickIcon(e, nodeProps)}
             onMouseEnter={e => onMouseEnter(e, nodeProps)}
             onMouseLeave={e => onMouseLeave(e, nodeProps)}
@@ -206,6 +206,7 @@ const MetalakeTree = props => {
       return (
         <Typography
           sx={{ color: theme => theme.palette.text.secondary }}
+          className='dark:twc-text-[#dbdbdb]'
           data-refer='tree-node'
           data-refer-node={nodeData.key}
         >
@@ -234,6 +235,7 @@ const MetalakeTree = props => {
       <Tree
         ref={treeRef}
         rootStyle={{
+          backgroundColor: 'transparent',
           '& .antTreeTitle': {
             width: '100%'
           }
@@ -253,6 +255,7 @@ const MetalakeTree = props => {
           '[&_.ant-tree-switcher]:twc-inline-flex',
           '[&_.ant-tree-switcher]:twc-justify-center',
           '[&_.ant-tree-switcher]:twc-items-center',
+          '[&_.ant-tree-switcher]:dark:twc-text-[white]',
 
           '[&_.ant-tree-iconEle]:twc-w-[unset]',
           '[&_.ant-tree-iconEle]:twc-inline-flex',
@@ -264,7 +267,9 @@ const MetalakeTree = props => {
 
           '[&_.ant-tree-node-content-wrapper]:twc-inline-flex',
           '[&_.ant-tree-node-content-wrapper]:twc-items-center',
-          '[&_.ant-tree-node-content-wrapper]:twc-leading-[28px]'
+          '[&_.ant-tree-node-content-wrapper]:twc-leading-[28px]',
+
+          '[&_.ant-tree-node-selected]:dark:twc-bg-[rgba(255,255,255,0.2)]'
         ])}
         data-refer='tree-view'
         icon={nodeProps => renderIcon(nodeProps)}

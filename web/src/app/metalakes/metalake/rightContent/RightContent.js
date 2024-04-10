@@ -17,7 +17,7 @@ import { useSearchParams } from 'next/navigation'
 const RightContent = () => {
   const [open, setOpen] = useState(false)
   const searchParams = useSearchParams()
-  const [isShowBtn, setBtnVisiable] = useState(true)
+  const [isShowBtn, setBtnVisible] = useState(true)
 
   const handleCreateCatalog = () => {
     setOpen(true)
@@ -26,11 +26,11 @@ const RightContent = () => {
   useEffect(() => {
     const paramsSize = [...searchParams.keys()].length
     const isMetalakePage = paramsSize == 1 && searchParams.get('metalake')
-    setBtnVisiable(isMetalakePage)
+    setBtnVisible(isMetalakePage)
   }, [searchParams])
 
   return (
-    <Box className={`twc-w-0 twc-grow twc-h-full twc-bg-customs-white twc-overflow-hidden`}>
+    <Box className={`twc-w-0 twc-grow twc-h-full twc-overflow-hidden twc-bg-customs-white dark:twc-bg-[transparent]`}>
       <Box
         className={`twc-py-3 twc-px-5 twc-flex twc-items-center twc-justify-between`}
         sx={{

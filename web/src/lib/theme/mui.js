@@ -6,14 +6,15 @@
 import { createTheme, responsiveFontSizes } from '@mui/material'
 
 import { alpha } from '../utils/color'
-import settings from '../settings'
 import colors from './colors'
 import screens from './screens'
+
+import themeConfig from '@/configs/themeConfig'
 
 const { customs, primary, secondary, success, error, warning, info, grey } = colors
 
 const createMuiTheme = (config = {}) => {
-  const mode = config.mode ?? settings.mode ?? 'light'
+  const mode = themeConfig.mode ?? config.mode ?? 'light'
 
   return responsiveFontSizes(
     createTheme({
@@ -57,7 +58,7 @@ const createMuiTheme = (config = {}) => {
         },
         divider: alpha(customs.main, 0.12),
         background: {
-          paper: mode === 'light' ? customs.white : customs.darkBg,
+          paper: mode === 'light' ? customs.white : customs.darkPaperBg,
           default: mode === 'light' ? customs.lightBg : customs.darkBg
         },
         action: {
@@ -205,6 +206,13 @@ const createMuiTheme = (config = {}) => {
         }
       },
       components: {
+        MuiAppBar: {
+          styleOverrides: {
+            root: ({ theme }) => ({
+              backgroundColor: mode === 'light' ? customs.white : customs.darkPaperBg
+            })
+          }
+        },
         MuiButton: {
           styleOverrides: {
             root: ({ ownerState, theme }) => ({
@@ -417,15 +425,17 @@ const createMuiTheme = (config = {}) => {
         },
         MuiPaper: {
           styleOverrides: {
-            root: {
-              backgroundImage: 'none'
-            }
+            root: ({ theme }) => ({
+              backgroundImage: 'none',
+              backgroundColor: mode === 'light' ? customs.white : customs.darkPaperBg,
+              boxShadow: mode === 'light' ? theme.shadows[6] : 'none'
+            })
           }
         },
         MuiBackdrop: {
           styleOverrides: {
             root: ({ theme }) => ({
-              backgroundColor: `${alpha(customs.main, 0.5)}`
+              backgroundColor: mode === 'light' ? `${alpha(customs.main, 0.5)}` : `${alpha(customs.main, 0.1)}`
             }),
             invisible: {
               backgroundColor: 'transparent'
@@ -665,7 +675,8 @@ const createMuiTheme = (config = {}) => {
               color: theme.palette.text.primary,
               '& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within': {
                 outline: 'none'
-              }
+              },
+              backgroundColor: theme.palette.background.paper
             }),
             toolbarContainer: ({ theme }) => ({
               paddingRight: `${theme.spacing(5)} !important`,

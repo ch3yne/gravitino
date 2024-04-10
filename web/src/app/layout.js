@@ -10,6 +10,8 @@ import Provider from '@/lib/provider'
 import Layout from './rootLayout/Layout'
 import StyledToast from '../components/StyledToast'
 
+import themeConfig from '../configs/themeConfig'
+
 export const metadata = {
   title: 'Gravitino',
   description: 'A high-performance, geo-distributed and federated metadata lake.',
@@ -20,7 +22,7 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning className={themeConfig.mode === 'light' ? 'twc-light' : 'twc-dark'}>
       <body>
         <Provider>
           <NavigationEvents />
