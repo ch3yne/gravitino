@@ -3,6 +3,9 @@
   This software is licensed under the Apache License version 2.
 -->
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fch3yne%2Fgravitino.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fch3yne%2Fgravitino?ref=badge_large)
+
 # Gravitino
 
 [![GitHub Actions Build](https://github.com/datastrato/gravitino/actions/workflows/build.yml/badge.svg)](https://github.com/datastrato/gravitino/actions/workflows/build.yml)
@@ -13,6 +16,7 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/datastrato/gravitino)](https://github.com/datastrato/gravitino/issues)
 [![Last Committed](https://img.shields.io/github/last-commit/datastrato/gravitino)](https://github.com/datastrato/gravitino/commits/main/)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/8358/badge)](https://www.bestpractices.dev/projects/8358)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fch3yne%2Fgravitino.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fch3yne%2Fgravitino?ref=badge_shield)
 
 ## Introduction
 
