@@ -16,7 +16,7 @@ import { initialVersion } from '@/lib/store/sys'
 import { to } from '../utils'
 import { getAuthConfigs, setAuthToken } from '../store/auth'
 
-import { useIdle } from 'react-use'
+import useIdle from '@/lib/hooks/useIdle'
 
 const authProvider = {
   version: '',
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
 
   const expiredIn = localStorage.getItem('expiredIn') && JSON.parse(localStorage.getItem('expiredIn')) // seconds
   const idleOn = (expiredIn + 60) * 1000
-  const isIdle = useIdle(idleOn)
+  const isIdle = useIdle(idleOn, 'sss')
 
   useEffect(() => {
     if (isIdle) {
@@ -61,6 +61,8 @@ const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       const [authConfigsErr, resAuthConfigs] = await to(dispatch(getAuthConfigs()))
       const authType = resAuthConfigs?.payload?.authType
+
+      localStorage.setItem('isIdle', false)
 
       if (authType === 'simple') {
         dispatch(initialVersion())

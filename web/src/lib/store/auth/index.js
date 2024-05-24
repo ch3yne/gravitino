@@ -65,6 +65,7 @@ export const loginAction = createAsyncThunk('auth/loginAction', async ({ params,
 
   localStorage.setItem('accessToken', access_token)
   localStorage.setItem('expiredIn', expires_in)
+  localStorage.setItem('expiredInTime', Date.now() + expires_in * 1000)
   localStorage.setItem('isIdle', false)
   dispatch(setAuthToken(access_token))
   dispatch(setExpiredIn(expires_in))

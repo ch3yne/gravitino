@@ -50,7 +50,7 @@ const refreshToken = async () => {
   const url = localStorage.getItem('oauthUrl')
   const params = localStorage.getItem('authParams')
 
-  const res = await defHttp.post({ url: `${url}?${qs.stringify(JSON.parse(params))}` }, { withToken: false })
+  const res = await defHttp.post({ url, params }, { withToken: false })
 
   return res
 }
@@ -177,6 +177,32 @@ const transform: AxiosTransform = {
       }
     }
 
+    const isIdle = localStorage.getItem('isIdle') && JSON.parse(localStorage.getItem('isIdle'))
+
+    const expiredInTime = localStorage.getItem('expiredInTime') && JSON.parse(localStorage.getItem('expiredInTime'))
+    const lastActiveTime = localStorage.getItem('lastActiveTime') && JSON.parse(localStorage.getItem('lastActiveTime'))
+
+    if (lastActiveTime > expiredInTime && !isIdle) {
+      if (!isRefreshing) {
+        isRefreshing = true
+        try {
+          refreshToken()
+            .then(res => {
+              const { access_token } = res
+              localStorage.setItem('accessToken', access_token)
+            })
+            .catch(err => {
+              console.error('refreshToken error =>', err)
+              resetToLoginState()
+            })
+        } catch (err) {
+          console.error(err)
+        } finally {
+          isRefreshing = false
+        }
+      }
+    }
+
     return config
   },
 
@@ -240,40 +266,6 @@ const transform: AxiosTransform = {
     }
 
     checkStatus(error?.response?.status, msg, errorMessageMode)
-
-    if (response?.status === 401 && !originConfig._retry) {
-      // Log out directly if idle for more than 30 minutes
-      const isIdle = localStorage.getItem('isIdle') && JSON.parse(localStorage.getItem('isIdle'))
-      if (isIdle) {
-        console.error('User is idle')
-        resetToLoginState()
-      }
-
-      originConfig._retry = true
-
-      if (!isRefreshing) {
-        isRefreshing = true
-
-        try {
-          refreshToken()
-            .then(res => {
-              const { access_token } = res
-              localStorage.setItem('accessToken', access_token)
-
-              return defHttp.request(originConfig)
-            })
-            .catch(err => {
-              console.error('refreshToken error =>', err)
-              resetToLoginState()
-            })
-        } catch (err) {
-          console.error(err)
-        } finally {
-          isRefreshing = false
-          location.reload()
-        }
-      }
-    }
 
     const retryRequest = new AxiosRetry()
     const { isOpenRetry } = originConfig.requestOptions.retryRequest
